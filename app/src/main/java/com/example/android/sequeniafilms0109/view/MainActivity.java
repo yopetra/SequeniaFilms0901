@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         mainTextView = findViewById(R.id.tv_main);
         presenter = new MainActivityPresenter(this);
 
-        presenter.updateTextInMain("Text added with presenter");
+        presenter.printFilmsSizeList();
     }
 
     @Override
