@@ -1,6 +1,7 @@
 package com.example.android.sequeniafilms0109.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -22,6 +23,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         presenter = new MainActivityPresenter(this);
 
         presenter.printFilmsSizeList();
+
+        FilmsListFragment filmsListFragment = new FilmsListFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(R.id.fl_frame_container, filmsListFragment)
+                .commit();
     }
 
     @Override
