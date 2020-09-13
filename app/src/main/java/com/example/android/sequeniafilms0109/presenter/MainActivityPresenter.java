@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.android.sequeniafilms0109.model.Film;
 import com.example.android.sequeniafilms0109.model.Films;
 import com.example.android.sequeniafilms0109.model.FilmsHolder;
+import com.example.android.sequeniafilms0109.model.GenreHolder;
 import com.example.android.sequeniafilms0109.utils.FilmsService;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class MainActivityPresenter {
     private FilmsService filmsService;
     private final String LOG_TAG = "MainActivityPresenter";
     private FilmsHolder filmsHolder = FilmsHolder.getInstance();
+    private GenreHolder genreHolder = GenreHolder.getInstance();
 
     public MainActivityPresenter(ViewInterface viewInterface){
         this.viewInterface = viewInterface;
@@ -43,6 +45,8 @@ public class MainActivityPresenter {
                         for(int i = 0; i < arrSize; i++){
                             filmsHolder.addFilm(filmsDetails.get(i));
                         }
+
+                        genreHolder.extractGenresFrom(filmsHolder.getAllFilms());
                         viewInterface.applyFilmsData(filmsHolder.getAllFilms());
 //                        viewInterface.updateText("Films size = " + filmsDetails.size());
                     }
