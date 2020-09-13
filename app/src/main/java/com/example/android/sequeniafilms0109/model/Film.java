@@ -25,7 +25,7 @@ public class Film {
     private String rating;
     @SerializedName("image_url")
     @Expose
-    private Object imageUrl;
+    private String imageUrl;
     @SerializedName("description")
     @Expose
     private String description;
@@ -84,11 +84,11 @@ public class Film {
         this.rating = rating;
     }
 
-    public Object getImageUrl() {
+    public String getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(Object imageUrl) {
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 

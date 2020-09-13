@@ -4,8 +4,10 @@ import android.util.Log;
 
 import com.example.android.sequeniafilms0109.model.Film;
 import com.example.android.sequeniafilms0109.model.Films;
+import com.example.android.sequeniafilms0109.model.FilmsHolder;
 import com.example.android.sequeniafilms0109.utils.FilmsService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -17,6 +19,7 @@ public class MainActivityPresenter {
     private ViewInterface viewInterface;
     private FilmsService filmsService;
     private final String LOG_TAG = "MainActivityPresenter";
+    private FilmsHolder filmsHolder = FilmsHolder.getInstance();
 
     public MainActivityPresenter(ViewInterface viewInterface){
         this.viewInterface = viewInterface;
@@ -26,7 +29,7 @@ public class MainActivityPresenter {
         }
     }
 
-    public void printFilmsSizeList(){
+    public void fetchFilms(){
         filmsService
                 .getAPI()
                 .getAllFilms()
@@ -34,7 +37,14 @@ public class MainActivityPresenter {
                     @Override
                     public void onResponse(Call<Films> call, Response<Films> response) {
                         List<Film> filmsDetails = response.body().getFilms();
-                        viewInterface.updateText("Films size = " + filmsDetails.size());
+
+//                        FilmsHolder filmsHolder = FilmsHolder.getInstance();
+                        int arrSize = filmsDetails.size();
+                        for(int i = 0; i < arrSize; i++){
+                            filmsHolder.addFilm(filmsDetails.get(i));
+                        }
+                        viewInterface.applyFilmsData(filmsHolder.getAllFilms());
+//                        viewInterface.updateText("Films size = " + filmsDetails.size());
                     }
 
                     @Override
@@ -44,7 +54,12 @@ public class MainActivityPresenter {
                 });
     }
 
+    public ArrayList<Film> getAllFilms(){
+        return filmsHolder.getAllFilms();
+    }
+
     public interface ViewInterface{
         void updateText(String textString);
+        void applyFilmsData(ArrayList<Film> films);
     }
 }

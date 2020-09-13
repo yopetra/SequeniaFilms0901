@@ -3,24 +3,35 @@ package com.example.android.sequeniafilms0109.view;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.android.sequeniafilms0109.R;
+import com.example.android.sequeniafilms0109.model.Film;
+import com.example.android.sequeniafilms0109.presenter.MainActivityPresenter;
+import com.example.android.sequeniafilms0109.utils.FilmsListAdapter;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FilmsListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FilmsListFragment extends Fragment {
+public class FilmsListFragment extends Fragment implements FilmsListAdapter.FilmsAdapterOnclickHandler, MainActivityPresenter.ViewInterface {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private RecyclerView mFilmsRecyclerView;
+    private FilmsListAdapter mAdapter;
+    private MainActivityPresenter mPresenter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -61,6 +72,36 @@ public class FilmsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_films_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_films_list, container, false);
+
+        mPresenter = new MainActivityPresenter(this);
+        mPresenter.fetchFilms();
+        ArrayList<Film> filmsList =  mPresenter.getAllFilms();
+
+        mFilmsRecyclerView = rootView.findViewById(R.id.rv_films_grid);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(rootView.getContext(), 2);
+        mFilmsRecyclerView.setLayoutManager(gridLayoutManager);
+        mFilmsRecyclerView.setHasFixedSize(true);
+        mAdapter = new FilmsListAdapter(this);
+//        mAdapter.setFilmData(filmsList);
+        mFilmsRecyclerView.setAdapter(mAdapter);
+
+        return rootView;
+    }
+
+    @Override
+    public void onClick(Film film) {
+        System.out.println("Film = " + film.getName());
+    }
+
+    @Override
+    public void updateText(String textString) {
+
+    }
+
+    @Override
+    public void applyFilmsData(ArrayList<Film> films) {
+        mAdapter.setFilmData(films);
     }
 }

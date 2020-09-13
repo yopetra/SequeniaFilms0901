@@ -9,20 +9,20 @@ import android.widget.TextView;
 import com.example.android.sequeniafilms0109.R;
 import com.example.android.sequeniafilms0109.presenter.MainActivityPresenter;
 
-public class MainActivity extends AppCompatActivity implements MainActivityPresenter.ViewInterface {
+public class MainActivity extends AppCompatActivity {
 
-    private TextView mainTextView;
-    private MainActivityPresenter presenter;
+//    private TextView mainTextView;
+//    private MainActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mainTextView = findViewById(R.id.tv_main);
-        presenter = new MainActivityPresenter(this);
+//        mainTextView = findViewById(R.id.tv_main);
+//        presenter = new MainActivityPresenter(this);
 
-        presenter.printFilmsSizeList();
+//        presenter.printFilmsSizeList();
 
         FilmsListFragment filmsListFragment = new FilmsListFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
                 .commit();
     }
 
-    @Override
-    public void updateText(String textString) {
-        mainTextView.setText(textString);
-    }
+//    @Override
+//    public void updateText(String textString) {
+//        mainTextView.setText(textString);
+//    }
 }
