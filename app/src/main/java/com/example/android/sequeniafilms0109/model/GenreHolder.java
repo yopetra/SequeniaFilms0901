@@ -1,6 +1,7 @@
 package com.example.android.sequeniafilms0109.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GenreHolder {
@@ -48,6 +49,8 @@ public class GenreHolder {
                 }
             }
         }
+
+        Collections.sort(genresList);
 
 //        System.out.println("Have been added " + genresList.size() + " genres.");
     }
