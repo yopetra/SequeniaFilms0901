@@ -9,19 +9,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.sequeniafilms0109.R;
 import com.example.android.sequeniafilms0109.model.Film;
 import com.example.android.sequeniafilms0109.model.FilmsHolder;
+import com.example.android.sequeniafilms0109.model.GenreHolder;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class FilmsListAdapter extends RecyclerView.Adapter<FilmsListAdapter.FilmsListViewHolder> {
+//public class FilmsListAdapter extends RecyclerView.Adapter<FilmsListAdapter.FilmsListViewHolder> {
+public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<Film> filmsList = new ArrayList<>();
+    private ArrayList<Film> filmsList;
     private ArrayList<Object> genresAndFilmsList = new ArrayList<>();
+    private final int GENRE_TYPE = 0;
+    private final int FILM_TYPE = 1;
+    private final int DEVIDER_TYPE = 2;
 
     private final FilmsAdapterOnclickHandler mClickHandler;
 
@@ -33,48 +39,126 @@ public class FilmsListAdapter extends RecyclerView.Adapter<FilmsListAdapter.Film
         mClickHandler = clickHandler;
     }
 
-    @NonNull
+
+    public static class GenresTypeViewHolder extends RecyclerView.ViewHolder{
+
+        TextView genreTextView;
+        CardView cardView;
+
+        public GenresTypeViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            this.genreTextView = itemView.findViewById(R.id.tv_genre_type);
+            this.cardView = itemView.findViewById(R.id.card_view);
+        }
+    }
+
+    public static class FilmsTypeViewHolder extends RecyclerView.ViewHolder{
+
+        TextView filmNameTextView;
+        ImageView filmImageView;
+
+        public FilmsTypeViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            this.filmNameTextView = itemView.findViewById(R.id.tv_film_name);
+            this.filmImageView = itemView.findViewById(R.id.iv_film_item);
+        }
+    }
+
+//    @NonNull
+//    @Override
+//    public FilmsListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+//        Context context = viewGroup.getContext();
+//        int layoutIdForListItem = R.layout.film_item;
+//        LayoutInflater inflater = LayoutInflater.from(context);
+//        boolean shouldAttachToParent = false;
+//
+//        View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParent);
+//        FilmsListViewHolder viewHolder = new FilmsListViewHolder(view);
+//
+//        return viewHolder;
+//    }
+
     @Override
-    public FilmsListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.film_item;
-        LayoutInflater inflater = LayoutInflater.from(context);
-        boolean shouldAttachToParent = false;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParent);
-        FilmsListViewHolder viewHolder = new FilmsListViewHolder(view);
+        View view;
+        switch (viewType){
+            case GENRE_TYPE:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.genre_type, parent, false);
+                return new GenresTypeViewHolder(view);
+            case FILM_TYPE:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.film_item, parent, false);
+                return new FilmsTypeViewHolder(view);
+        }
 
-        return viewHolder;
+        return null;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FilmsListViewHolder holder, int position) {
-//        FilmsHolder filmsHolder = FilmsHolder.getInstance();
+    public int getItemViewType(int position){
+        GenreHolder genreHolder = GenreHolder.getInstance();
+        int genresSize = genreHolder.getSize();
+
+        if(position < genresSize){return GENRE_TYPE;}
+        if(position >= genresSize){return FILM_TYPE;}
+
+        return -1;
+    }
+
+//    @Override
+//    public void onBindViewHolder(@NonNull FilmsListViewHolder holder, int position) {
+////        FilmsHolder filmsHolder = FilmsHolder.getInstance();
+//        Object genreOrFilmItem = genresAndFilmsList.get(position);
+//        String className = genreOrFilmItem.getClass().getSimpleName();
+//        System.out.println("Name of class = " + className);
+//
+//        if(className.matches("String")){
+//            System.out.println("Genre on screen = " + genreOrFilmItem);
+//            String genre = (String) genreOrFilmItem;
+//            holder.genreTextView.setVisibility(View.VISIBLE);
+//            holder.filmItemImageView.setVisibility(View.INVISIBLE);
+//            holder.genreTextView.setText(genre);
+//        }
+//        if(className.matches("Film")){
+//            holder.genreTextView.setVisibility(View.INVISIBLE);
+//            holder.filmItemImageView.setVisibility(View.VISIBLE);
+////            Film film = filmsHolder.getFilmById(position);
+//            Film film = (Film) genreOrFilmItem;
+//            String currentFilmURL = film.getImageUrl();
+//            if(currentFilmURL != null){
+//                Picasso.get()
+//                        .load(currentFilmURL)
+//                        .resize(200, 245)
+//                        .into(holder.filmItemImageView);
+//            }
+//        }
+//
+//    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position){
         Object genreOrFilmItem = genresAndFilmsList.get(position);
         String className = genreOrFilmItem.getClass().getSimpleName();
-        System.out.println("Name of class = " + className);
 
-        if(className.matches("String")){
-            System.out.println("Genre on screen = " + genreOrFilmItem);
-            String genre = (String) genreOrFilmItem;
-            holder.genreTextView.setVisibility(View.VISIBLE);
-            holder.filmItemImageView.setVisibility(View.INVISIBLE);
-            holder.genreTextView.setText(genre);
+        switch (className){
+            case "String":
+                ((GenresTypeViewHolder) holder).genreTextView.setText( (String) genreOrFilmItem );
+                break;
+            case "Film":
+                Film film = (Film) genreOrFilmItem;
+                String filmPicture = film.getImageUrl();
+                if(filmPicture != null){
+                    Picasso.get()
+                            .load(filmPicture)
+                            .resize(200, 245)
+                            .into( ((FilmsTypeViewHolder)holder).filmImageView );
+                }
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + className);
         }
-        if(className.matches("Film")){
-            holder.genreTextView.setVisibility(View.INVISIBLE);
-            holder.filmItemImageView.setVisibility(View.VISIBLE);
-//            Film film = filmsHolder.getFilmById(position);
-            Film film = (Film) genreOrFilmItem;
-            String currentFilmURL = film.getImageUrl();
-            if(currentFilmURL != null){
-                Picasso.get()
-                        .load(currentFilmURL)
-                        .resize(200, 245)
-                        .into(holder.filmItemImageView);
-            }
-        }
-
     }
 
     @Override
@@ -107,21 +191,21 @@ public class FilmsListAdapter extends RecyclerView.Adapter<FilmsListAdapter.Film
         }
     }
 
-    public class FilmsListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        ImageView filmItemImageView;
-        TextView genreTextView;
-
-        public FilmsListViewHolder(@NonNull View itemView) {
-            super(itemView);
-            filmItemImageView = itemView.findViewById(R.id.iv_film_item);
-            genreTextView = itemView.findViewById(R.id.tv_genre);
-        }
-
-        @Override
-        public void onClick(View view) {
-            Toast.makeText(view.getContext(), "Clicked " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-
-        }
-    }
+//    public class FilmsListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+//
+//        ImageView filmItemImageView;
+//        TextView genreTextView;
+//
+//        public FilmsListViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//            filmItemImageView = itemView.findViewById(R.id.iv_film_item);
+//            genreTextView = itemView.findViewById(R.id.tv_genre);
+//        }
+//
+//        @Override
+//        public void onClick(View view) {
+//            Toast.makeText(view.getContext(), "Clicked " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+//
+//        }
+//    }
 }

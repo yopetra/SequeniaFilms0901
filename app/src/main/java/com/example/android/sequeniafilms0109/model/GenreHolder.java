@@ -55,4 +55,8 @@ public class GenreHolder {
     public ArrayList<String> getGenresList(){
         return genresList;
     }
+
+    public int getSize(){
+        return genresList.size();
+    }
 }
