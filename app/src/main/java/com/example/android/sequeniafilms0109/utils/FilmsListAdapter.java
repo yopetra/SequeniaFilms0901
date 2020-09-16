@@ -1,20 +1,18 @@
 package com.example.android.sequeniafilms0109.utils;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.sequeniafilms0109.R;
+import com.example.android.sequeniafilms0109.model.CoupleOfFilms;
 import com.example.android.sequeniafilms0109.model.Film;
-import com.example.android.sequeniafilms0109.model.FilmsHolder;
 import com.example.android.sequeniafilms0109.model.GenreHolder;
 import com.squareup.picasso.Picasso;
 
@@ -23,7 +21,7 @@ import java.util.ArrayList;
 //public class FilmsListAdapter extends RecyclerView.Adapter<FilmsListAdapter.FilmsListViewHolder> {
 public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<Film> filmsList;
+//    private ArrayList<Film> filmsList;
     private ArrayList<Object> genresAndFilmsList = new ArrayList<>();
     private final int GENRE_TYPE = 0;
     private final int FILM_TYPE = 1;
@@ -56,13 +54,15 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public static class FilmsTypeViewHolder extends RecyclerView.ViewHolder{
 
         TextView filmNameTextView;
-        ImageView filmImageView;
+        ImageView filmAImageView;
+        ImageView filmBImageView;
 
         public FilmsTypeViewHolder(@NonNull View itemView) {
             super(itemView);
 
             this.filmNameTextView = itemView.findViewById(R.id.tv_film_name);
-            this.filmImageView = itemView.findViewById(R.id.iv_film_item);
+            this.filmAImageView = itemView.findViewById(R.id.iv_film_item);
+            this.filmBImageView = itemView.findViewById(R.id.iv_film_item_right);
         }
     }
 
@@ -146,14 +146,34 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             case "String":
                 ((GenresTypeViewHolder) holder).genreTextView.setText( (String) genreOrFilmItem );
                 break;
-            case "Film":
-                Film film = (Film) genreOrFilmItem;
-                String filmPicture = film.getImageUrl();
-                if(filmPicture != null){
+            case "CoupleOfFilms":
+                CoupleOfFilms coupleOfFilms = (CoupleOfFilms) genreOrFilmItem;
+//                Film film = (Film) genreOrFilmItem;
+//                String filmPicture = film.getImageUrl();
+                String filmAPicture = coupleOfFilms.getmFilmA().getImageUrl();
+                String filmBPicture = null;
+                if(coupleOfFilms.getmFilmB() != null){
+                    filmBPicture = coupleOfFilms.getmFilmB().getImageUrl();
+                }
+//                if(filmPicture != null){
+//                    Picasso.get()
+//                            .load(filmPicture)
+//                            .resize(200, 245)
+//                            .into( ((FilmsTypeViewHolder)holder).filmImageView );
+//                }
+
+                if(filmAPicture != null){
                     Picasso.get()
-                            .load(filmPicture)
+                            .load(filmAPicture)
                             .resize(200, 245)
-                            .into( ((FilmsTypeViewHolder)holder).filmImageView );
+                            .into(((FilmsTypeViewHolder) holder).filmAImageView);
+                }
+
+                if(filmBPicture != null){
+                    Picasso.get()
+                            .load(filmBPicture)
+                            .resize(200, 245)
+                            .into(((FilmsTypeViewHolder) holder).filmBImageView);
                 }
                 break;
             default:
@@ -174,8 +194,24 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void setFilmData(ArrayList<Object> genresAndFilms){
         int arrSize = genresAndFilms.size();
         for(int i = 0; i < arrSize; i++){
+            String className = genresAndFilms.get(i).getClass().getSimpleName();
+
+            // Create two films object
+            if(className.matches("Film")){
+                Film filmA = (Film) genresAndFilms.get(i);
+                Film filmB = null;
+                if((i+1) < arrSize ){
+                    filmB = (Film) genresAndFilms.get(i+1);
+                }
+
+                CoupleOfFilms coupleOfFilms = new CoupleOfFilms(filmA, filmB);
+                genresAndFilmsList.add(coupleOfFilms);
+                i++;
+            }else{
+                genresAndFilmsList.add(genresAndFilms.get(i));
+            }
 //            filmsList.add(films.get(i));
-            genresAndFilmsList.add(genresAndFilms.get(i));
+
         }
 
         notifyDataSetChanged();
