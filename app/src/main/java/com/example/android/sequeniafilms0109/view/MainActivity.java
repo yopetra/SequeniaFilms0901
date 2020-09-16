@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.android.sequeniafilms0109.R;
+import com.example.android.sequeniafilms0109.model.Film;
 import com.example.android.sequeniafilms0109.presenter.MainActivityPresenter;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.fl_frame_container, filmsListFragment)
                 .commit();
     }
-
 //    @Override
 //    public void updateText(String textString) {
 //        mainTextView.setText(textString);

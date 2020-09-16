@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -80,8 +82,10 @@ public class FilmsListFragment extends Fragment implements FilmsListAdapter.Film
 
         mFilmsRecyclerView = rootView.findViewById(R.id.rv_films_grid);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(rootView.getContext(), 2);
-        mFilmsRecyclerView.setLayoutManager(gridLayoutManager);
+//        GridLayoutManager gridLayoutManager = new GridLayoutManager(rootView.getContext(), 2);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(rootView.getContext(), RecyclerView.VERTICAL, false);
+//        mFilmsRecyclerView.setLayoutManager(gridLayoutManager);
+        mFilmsRecyclerView.setLayoutManager(linearLayoutManager);
         mFilmsRecyclerView.setHasFixedSize(true);
         mAdapter = new FilmsListAdapter(this);
 //        mAdapter.setFilmData(filmsList);
@@ -101,7 +105,7 @@ public class FilmsListFragment extends Fragment implements FilmsListAdapter.Film
     }
 
     @Override
-    public void applyFilmsData(ArrayList<Film> films) {
-        mAdapter.setFilmData(films);
+    public void applyFilmsData(ArrayList<Object> genresAndFilms) {
+        mAdapter.setFilmData(genresAndFilms);
     }
 }

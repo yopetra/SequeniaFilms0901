@@ -22,6 +22,7 @@ public class MainActivityPresenter {
     private final String LOG_TAG = "MainActivityPresenter";
     private FilmsHolder filmsHolder = FilmsHolder.getInstance();
     private GenreHolder genreHolder = GenreHolder.getInstance();
+    ArrayList<Object> genresAndFilmsList = new ArrayList<>();
 
     public MainActivityPresenter(ViewInterface viewInterface){
         this.viewInterface = viewInterface;
@@ -46,8 +47,14 @@ public class MainActivityPresenter {
                             filmsHolder.addFilm(filmsDetails.get(i));
                         }
 
-                        genreHolder.extractGenresFrom(filmsHolder.getAllFilms());
-                        viewInterface.applyFilmsData(filmsHolder.getAllFilms());
+                        ArrayList<Film> films = filmsHolder.getAllFilms();
+                        genreHolder.extractGenresFrom(films);
+
+                        ArrayList<String> genres = genreHolder.getGenresList();
+
+                        addGenresToList(genres);
+                        addFilmsToList(films);
+                        viewInterface.applyFilmsData(genresAndFilmsList);
 //                        viewInterface.updateText("Films size = " + filmsDetails.size());
                     }
 
@@ -58,12 +65,30 @@ public class MainActivityPresenter {
                 });
     }
 
+    private void addFilmsToList(ArrayList<Film> films) {
+        int size = films.size();
+
+        for(int i = 0; i < size; i++){
+            Film filmItem = films.get(i);
+            genresAndFilmsList.add(filmItem);
+        }
+    }
+
+    private void addGenresToList(ArrayList<String> genres) {
+        int size = genres.size();
+
+        for(int i = 0; i < size; i++){
+            String genreItem = genres.get(i);
+            genresAndFilmsList.add(genreItem);
+        }
+    }
+
     public ArrayList<Film> getAllFilms(){
         return filmsHolder.getAllFilms();
     }
 
     public interface ViewInterface{
         void updateText(String textString);
-        void applyFilmsData(ArrayList<Film> films);
+        void applyFilmsData(ArrayList<Object> genresAndFilms);
     }
 }

@@ -51,4 +51,8 @@ public class GenreHolder {
 
 //        System.out.println("Have been added " + genresList.size() + " genres.");
     }
+
+    public ArrayList<String> getGenresList(){
+        return genresList;
+    }
 }
