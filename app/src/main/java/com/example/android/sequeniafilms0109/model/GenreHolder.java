@@ -22,13 +22,12 @@ public class GenreHolder {
     public void extractGenresFrom(ArrayList<Film> films){
         int arrSize = films.size();
         for(int i = 0; i < arrSize; i++){
-//            System.out.println("Film index = " + i);
+
             List<String> genresInFilm = films.get(i).getGenres();
             int genresFilmSize = genresInFilm.size();
 
             for(int i2 = 0; i2 < genresFilmSize; i2++){
                 String genreNameInFilm = genresInFilm.get(i2);
-//                System.out.println("Genre in film = " + genreNameInFilm);
 
                 int genresInListSize = genresList.size();
                 if(genresInListSize == 0){
@@ -44,15 +43,12 @@ public class GenreHolder {
 
                     if(needAddToList){
                         genresList.add(genreNameInFilm);
-//                        System.out.println("Added to List");
                     }
                 }
             }
         }
 
         Collections.sort(genresList);
-
-//        System.out.println("Have been added " + genresList.size() + " genres.");
     }
 
     public ArrayList<String> getGenresList(){

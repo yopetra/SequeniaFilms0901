@@ -14,7 +14,7 @@ public class Films {
         return films;
     }
 
-    public void setFilms(List<Film> films) {
-        this.films = films;
-    }
+//    public void setFilms(List<Film> films) {
+//        this.films = films;
+//    }
 }

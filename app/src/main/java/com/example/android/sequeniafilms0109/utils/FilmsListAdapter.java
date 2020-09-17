@@ -18,10 +18,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-//public class FilmsListAdapter extends RecyclerView.Adapter<FilmsListAdapter.FilmsListViewHolder> {
 public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-//    private ArrayList<Film> filmsList;
     private ArrayList<Object> genresAndFilmsList = new ArrayList<>();
     private final int GENRE_TYPE = 0;
     private final int FILM_TYPE = 1;
@@ -68,20 +66,6 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-//    @NonNull
-//    @Override
-//    public FilmsListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-//        Context context = viewGroup.getContext();
-//        int layoutIdForListItem = R.layout.film_item;
-//        LayoutInflater inflater = LayoutInflater.from(context);
-//        boolean shouldAttachToParent = false;
-//
-//        View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParent);
-//        FilmsListViewHolder viewHolder = new FilmsListViewHolder(view);
-//
-//        return viewHolder;
-//    }
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -109,36 +93,6 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return -1;
     }
 
-//    @Override
-//    public void onBindViewHolder(@NonNull FilmsListViewHolder holder, int position) {
-////        FilmsHolder filmsHolder = FilmsHolder.getInstance();
-//        Object genreOrFilmItem = genresAndFilmsList.get(position);
-//        String className = genreOrFilmItem.getClass().getSimpleName();
-//        System.out.println("Name of class = " + className);
-//
-//        if(className.matches("String")){
-//            System.out.println("Genre on screen = " + genreOrFilmItem);
-//            String genre = (String) genreOrFilmItem;
-//            holder.genreTextView.setVisibility(View.VISIBLE);
-//            holder.filmItemImageView.setVisibility(View.INVISIBLE);
-//            holder.genreTextView.setText(genre);
-//        }
-//        if(className.matches("Film")){
-//            holder.genreTextView.setVisibility(View.INVISIBLE);
-//            holder.filmItemImageView.setVisibility(View.VISIBLE);
-////            Film film = filmsHolder.getFilmById(position);
-//            Film film = (Film) genreOrFilmItem;
-//            String currentFilmURL = film.getImageUrl();
-//            if(currentFilmURL != null){
-//                Picasso.get()
-//                        .load(currentFilmURL)
-//                        .resize(200, 245)
-//                        .into(holder.filmItemImageView);
-//            }
-//        }
-//
-//    }
-
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position){
         Object genreOrFilmItem = genresAndFilmsList.get(position);
@@ -150,8 +104,6 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 break;
             case "CoupleOfFilms":
                 CoupleOfFilms coupleOfFilms = (CoupleOfFilms) genreOrFilmItem;
-//                Film film = (Film) genreOrFilmItem;
-//                String filmPicture = film.getImageUrl();
                 Film filmA = coupleOfFilms.getmFilmA();
                 Film filmB = coupleOfFilms.getmFilmB();
 
@@ -180,14 +132,6 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     if(coupleOfFilms.getmFilmB() != null){
                         filmBPicture = filmB.getImageUrl();
                     }
-//                if(filmPicture != null){
-//                    Picasso.get()
-//                            .load(filmPicture)
-//                            .resize(200, 245)
-//                            .into( ((FilmsTypeViewHolder)holder).filmImageView );
-//                }
-
-
 
                     if(filmBPicture != null){
                         Picasso.get()
@@ -216,10 +160,8 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-//        if(filmsList == null){ return 0;}
         if(genresAndFilmsList == null){return 0;}
 
-//        return filmsList.size();
         int size = genresAndFilmsList.size();
         return size;
     }
@@ -243,38 +185,15 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }else{
                 genresAndFilmsList.add(genresAndFilms.get(i));
             }
-//            filmsList.add(films.get(i));
-
         }
 
         notifyDataSetChanged();
     }
 
     public void clearData(){
-//        while(filmsList.size() > 0){
-//            filmsList.remove(0);
-//        }
 
         while(genresAndFilmsList.size() > 0){
             genresAndFilmsList.remove(0);
         }
     }
-
-//    public class FilmsListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-//
-//        ImageView filmItemImageView;
-//        TextView genreTextView;
-//
-//        public FilmsListViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//            filmItemImageView = itemView.findViewById(R.id.iv_film_item);
-//            genreTextView = itemView.findViewById(R.id.tv_genre);
-//        }
-//
-//        @Override
-//        public void onClick(View view) {
-//            Toast.makeText(view.getContext(), "Clicked " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-//
-//        }
-//    }
 }

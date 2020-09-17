@@ -41,18 +41,12 @@ public class MainActivityPresenter {
                     public void onResponse(Call<Films> call, Response<Films> response) {
                         List<Film> filmsDetails = response.body().getFilms();
 
-//                        FilmsHolder filmsHolder = FilmsHolder.getInstance();
                         int arrSize = filmsDetails.size();
                         for(int i = 0; i < arrSize; i++){
                             filmsHolder.addFilm(filmsDetails.get(i));
                         }
 
                         ArrayList<Film> films = filmsHolder.getAllFilms();
-//                        System.out.println("The movies that we have:");
-//                        for(int i = 0; i < films.size(); i++){
-//                            Film film = films.get(i);
-//                            System.out.println(">> " + film.getLocalizedName());
-//                        }
                         genreHolder.extractGenresFrom(films);
 
                         ArrayList<String> genres = genreHolder.getGenresList();
@@ -60,7 +54,6 @@ public class MainActivityPresenter {
                         addGenresToList(genres);
                         addFilmsToList(films);
                         viewInterface.applyFilmsData(genresAndFilmsList);
-//                        viewInterface.updateText("Films size = " + filmsDetails.size());
                     }
 
                     @Override
@@ -93,7 +86,7 @@ public class MainActivityPresenter {
     }
 
     public interface ViewInterface{
-        void updateText(String textString);
+//        void updateText(String textString);
         void applyFilmsData(ArrayList<Object> genresAndFilms);
     }
 }
