@@ -14,6 +14,7 @@ import com.example.android.sequeniafilms0109.R;
 import com.example.android.sequeniafilms0109.model.CoupleOfFilms;
 import com.example.android.sequeniafilms0109.model.Devider;
 import com.example.android.sequeniafilms0109.model.Film;
+import com.example.android.sequeniafilms0109.model.Genre;
 import com.example.android.sequeniafilms0109.model.GenreHolder;
 import com.squareup.picasso.Picasso;
 
@@ -123,8 +124,9 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         String className = genreOrFilmItem.getClass().getSimpleName();
 
         switch (className){
-            case "String":
-                ((GenresTypeViewHolder) holder).genreTextView.setText( (String) genreOrFilmItem );
+            case "Genre":
+                Genre genre = (Genre) genreOrFilmItem;
+                ((GenresTypeViewHolder) holder).genreTextView.setText( genre.getName() );
                 break;
             case "CoupleOfFilms":
                 CoupleOfFilms coupleOfFilms = (CoupleOfFilms) genreOrFilmItem;

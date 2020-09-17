@@ -1,5 +1,9 @@
 package com.example.android.sequeniafilms0109.model;
 
+import android.os.Build;
+
+import com.example.android.sequeniafilms0109.utils.GenreNameSorter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,7 +11,7 @@ import java.util.List;
 public class GenreHolder {
 
     private static GenreHolder instance = null;
-    private ArrayList<String> genresList;
+    private ArrayList<Genre> genresList;
 
     private GenreHolder(){genresList = new ArrayList<>();}
 
@@ -31,27 +35,29 @@ public class GenreHolder {
 
                 int genresInListSize = genresList.size();
                 if(genresInListSize == 0){
-                    genresList.add(genreNameInFilm);
+                    genresList.add(new Genre(genreNameInFilm));
                 }
 
                 if(genresInListSize > 0){
                     boolean needAddToList = true;
                     for(int i3 = 0; i3 < genresInListSize; i3++){
-                        String genreNameInList = genresList.get(i3);
+                        String genreNameInList = genresList.get(i3).getName();
                         if(genreNameInFilm.matches(genreNameInList)){needAddToList = false;}
                     }
 
                     if(needAddToList){
-                        genresList.add(genreNameInFilm);
+                        genresList.add(new Genre(genreNameInFilm));
                     }
                 }
             }
         }
 
-        Collections.sort(genresList);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            genresList.sort(new GenreNameSorter());
+        }
     }
 
-    public ArrayList<String> getGenresList(){
+    public ArrayList<Genre> getGenresList(){
         return genresList;
     }
 
@@ -60,7 +66,7 @@ public class GenreHolder {
     }
 
 
-    public String getById(int genreId) {
+    public Genre getById(int genreId) {
         return genresList.get(genreId);
     }
 }

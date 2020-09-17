@@ -6,6 +6,7 @@ import com.example.android.sequeniafilms0109.model.Devider;
 import com.example.android.sequeniafilms0109.model.Film;
 import com.example.android.sequeniafilms0109.model.Films;
 import com.example.android.sequeniafilms0109.model.FilmsHolder;
+import com.example.android.sequeniafilms0109.model.Genre;
 import com.example.android.sequeniafilms0109.model.GenreHolder;
 import com.example.android.sequeniafilms0109.utils.FilmsService;
 
@@ -51,7 +52,7 @@ public class MainActivityPresenter {
                         ArrayList<Film> films = filmsHolder.getAllFilms();
                         genreHolder.extractGenresFrom(films);
 
-                        ArrayList<String> genres = genreHolder.getGenresList();
+                        ArrayList<Genre> genres = genreHolder.getGenresList();
 
                         genresAndFilmsList.add(new Devider("Жанры"));
                         addGenresToList(genres);
@@ -76,12 +77,12 @@ public class MainActivityPresenter {
         }
     }
 
-    private void addGenresToList(ArrayList<String> genres) {
+    private void addGenresToList(ArrayList<Genre> genres) {
         int size = genres.size();
 
         for(int i = 0; i < size; i++){
-            String genreItem = genres.get(i);
-            genresAndFilmsList.add(genreItem);
+            String genreName = genres.get(i).getName();
+            genresAndFilmsList.add(new Genre(genreName));
         }
     }
 
@@ -96,7 +97,7 @@ public class MainActivityPresenter {
 
     public String clickedGenre(int genreId){
         GenreHolder genreHolder = GenreHolder.getInstance();
-        String genreName = genreHolder.getById(genreId-1);
+        String genreName = genreHolder.getById(genreId-1).getName();
 
         return genreName;
     }

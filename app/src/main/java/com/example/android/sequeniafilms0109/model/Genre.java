@@ -9,4 +9,8 @@ public class Genre {
         this.mName = name;
         this.mSelected = false;
     }
+
+    public String getName() {
+        return mName;
+    }
 }
