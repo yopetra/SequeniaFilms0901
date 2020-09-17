@@ -53,14 +53,16 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public static class FilmsTypeViewHolder extends RecyclerView.ViewHolder{
 
-        TextView filmNameTextView;
+        TextView filmANameTextView;
+        TextView filmBNameTextView;
         ImageView filmAImageView;
         ImageView filmBImageView;
 
         public FilmsTypeViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            this.filmNameTextView = itemView.findViewById(R.id.tv_film_name);
+            this.filmANameTextView = itemView.findViewById(R.id.tv_film_name);
+            this.filmBNameTextView = itemView.findViewById(R.id.tv_film_name_right);
             this.filmAImageView = itemView.findViewById(R.id.iv_film_item);
             this.filmBImageView = itemView.findViewById(R.id.iv_film_item_right);
         }
@@ -150,11 +152,34 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 CoupleOfFilms coupleOfFilms = (CoupleOfFilms) genreOrFilmItem;
 //                Film film = (Film) genreOrFilmItem;
 //                String filmPicture = film.getImageUrl();
-                String filmAPicture = coupleOfFilms.getmFilmA().getImageUrl();
-                String filmBPicture = null;
-                if(coupleOfFilms.getmFilmB() != null){
-                    filmBPicture = coupleOfFilms.getmFilmB().getImageUrl();
+                Film filmA = coupleOfFilms.getmFilmA();
+                Film filmB = coupleOfFilms.getmFilmB();
+
+                if(filmA != null){
+                    String filmAPicture = filmA.getImageUrl();
+                    String filmAName = filmA.getLocalizedName();
+
+                    if(filmAPicture != null){
+                        Picasso.get()
+                                .load(filmAPicture)
+                                .error(R.drawable.no_image_available_md)
+                                .resize(200, 245)
+                                .into(((FilmsTypeViewHolder) holder).filmAImageView);
+                    }else{
+                        Picasso.get()
+                                .load(R.drawable.no_image_available_md)
+                                .into(((FilmsTypeViewHolder) holder).filmAImageView);
+                    }
+                    ((FilmsTypeViewHolder) holder).filmANameTextView.setText(filmAName);
                 }
+
+                if(filmB != null){
+                    String filmBPicture = null;
+                    String filmBName = filmB.getLocalizedName();
+
+                    if(coupleOfFilms.getmFilmB() != null){
+                        filmBPicture = filmB.getImageUrl();
+                    }
 //                if(filmPicture != null){
 //                    Picasso.get()
 //                            .load(filmPicture)
@@ -162,29 +187,23 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 //                            .into( ((FilmsTypeViewHolder)holder).filmImageView );
 //                }
 
-                if(filmAPicture != null){
-                    Picasso.get()
-                            .load(filmAPicture)
-                            .error(R.drawable.no_image_available_md)
-                            .resize(200, 245)
-                            .into(((FilmsTypeViewHolder) holder).filmAImageView);
-                }else{
-                    Picasso.get()
-                            .load(R.drawable.no_image_available_md)
-                            .into(((FilmsTypeViewHolder) holder).filmAImageView);
+
+
+                    if(filmBPicture != null){
+                        Picasso.get()
+                                .load(filmBPicture)
+                                .error(R.drawable.no_image_available_md)
+                                .resize(200, 245)
+                                .into(((FilmsTypeViewHolder) holder).filmBImageView);
+                    }else{
+                        Picasso.get()
+                                .load(R.drawable.no_image_available_md)
+                                .into(((FilmsTypeViewHolder) holder).filmBImageView);
+                    }
+                    ((FilmsTypeViewHolder) holder).filmBNameTextView.setText(filmBName);
                 }
 
-                if(filmBPicture != null){
-                    Picasso.get()
-                            .load(filmBPicture)
-                            .error(R.drawable.no_image_available_md)
-                            .resize(200, 245)
-                            .into(((FilmsTypeViewHolder) holder).filmBImageView);
-                }else{
-                    Picasso.get()
-                            .load(R.drawable.no_image_available_md)
-                            .into(((FilmsTypeViewHolder) holder).filmBImageView);
-                }
+
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + className);
