@@ -201,6 +201,10 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                                 .into(((FilmsTypeViewHolder) holder).filmBImageView);
                     }
                     ((FilmsTypeViewHolder) holder).filmBNameTextView.setText(filmBName);
+                }else{
+                    // if the film B not available in the couple object
+                    ((FilmsTypeViewHolder) holder).filmBImageView.setVisibility(View.GONE);
+                    ((FilmsTypeViewHolder) holder).filmBNameTextView.setVisibility(View.GONE);
                 }
 
 
