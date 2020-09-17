@@ -1,6 +1,11 @@
 package com.example.android.sequeniafilms0109.model;
 
+import android.os.Build;
+
+import com.example.android.sequeniafilms0109.utils.FilmNameSorter;
+
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class FilmsHolder {
 
@@ -33,5 +38,11 @@ public class FilmsHolder {
 
     public int getSize(){
         return filmsList.size();
+    }
+
+    public void sorting(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            filmsList.sort(new FilmNameSorter());
+        }
     }
 }

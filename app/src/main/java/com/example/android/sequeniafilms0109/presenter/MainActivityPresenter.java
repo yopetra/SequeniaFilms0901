@@ -47,6 +47,7 @@ public class MainActivityPresenter {
                             filmsHolder.addFilm(filmsDetails.get(i));
                         }
 
+                        filmsHolder.sorting();
                         ArrayList<Film> films = filmsHolder.getAllFilms();
                         genreHolder.extractGenresFrom(films);
 
