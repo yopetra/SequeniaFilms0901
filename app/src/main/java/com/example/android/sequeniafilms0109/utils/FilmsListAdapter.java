@@ -26,10 +26,10 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private final int FILM_TYPE = 1;
     private final int DEVIDER_TYPE = 2;
 
-    private final FilmsAdapterOnclickHandler mClickHandler;
+    private static FilmsAdapterOnclickHandler mClickHandler;
 
     public interface FilmsAdapterOnclickHandler{
-        void onClick(Film film);
+        void onClick(int potition);
     }
 
     public FilmsListAdapter(FilmsAdapterOnclickHandler clickHandler){
@@ -37,7 +37,7 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
-    public static class GenresTypeViewHolder extends RecyclerView.ViewHolder{
+    public static class GenresTypeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView genreTextView;
         CardView cardView;
@@ -47,6 +47,14 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             this.genreTextView = itemView.findViewById(R.id.tv_genre_type);
             this.cardView = itemView.findViewById(R.id.card_view);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int adapterPosition = getAdapterPosition();
+            mClickHandler.onClick(adapterPosition);
         }
     }
 

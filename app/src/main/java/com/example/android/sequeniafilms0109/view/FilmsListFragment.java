@@ -92,8 +92,8 @@ public class FilmsListFragment extends Fragment implements FilmsListAdapter.Film
     }
 
     @Override
-    public void onClick(Film film) {
-        System.out.println("Film = " + film.getName());
+    public void onClick(int position) {
+        System.out.println("Film = " + mPresenter.clickedGenre(position) );
     }
 
 //    @Override

@@ -58,4 +58,9 @@ public class GenreHolder {
     public int getSize(){
         return genresList.size();
     }
+
+
+    public String getById(int genreId) {
+        return genresList.get(genreId);
+    }
 }
