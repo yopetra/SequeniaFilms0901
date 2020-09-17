@@ -2,6 +2,7 @@ package com.example.android.sequeniafilms0109.presenter;
 
 import android.util.Log;
 
+import com.example.android.sequeniafilms0109.model.Devider;
 import com.example.android.sequeniafilms0109.model.Film;
 import com.example.android.sequeniafilms0109.model.Films;
 import com.example.android.sequeniafilms0109.model.FilmsHolder;
@@ -51,7 +52,9 @@ public class MainActivityPresenter {
 
                         ArrayList<String> genres = genreHolder.getGenresList();
 
+                        genresAndFilmsList.add(new Devider("Жанры"));
                         addGenresToList(genres);
+                        genresAndFilmsList.add(new Devider("Фильмы"));
                         addFilmsToList(films);
                         viewInterface.applyFilmsData(genresAndFilmsList);
                     }

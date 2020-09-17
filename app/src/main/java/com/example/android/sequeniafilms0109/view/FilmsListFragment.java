@@ -3,15 +3,12 @@ package com.example.android.sequeniafilms0109.view;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.example.android.sequeniafilms0109.R;
 import com.example.android.sequeniafilms0109.model.Film;
@@ -106,6 +103,6 @@ public class FilmsListFragment extends Fragment implements FilmsListAdapter.Film
 
     @Override
     public void applyFilmsData(ArrayList<Object> genresAndFilms) {
-        mAdapter.setFilmData(genresAndFilms);
+        mAdapter.setMainListData(genresAndFilms);
     }
 }
