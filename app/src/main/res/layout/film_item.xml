@@ -23,8 +23,7 @@
             <ImageView
                 android:id="@+id/iv_film_item"
                 android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:src="@android:drawable/ic_menu_report_image"/>
+                android:layout_height="200dp"/>
 
         </FrameLayout>
 
@@ -40,8 +39,7 @@
             <ImageView
                 android:id="@+id/iv_film_item_right"
                 android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:src="@android:drawable/ic_menu_report_image"/>
+                android:layout_height="200dp"/>
         </FrameLayout>
 
     </LinearLayout>

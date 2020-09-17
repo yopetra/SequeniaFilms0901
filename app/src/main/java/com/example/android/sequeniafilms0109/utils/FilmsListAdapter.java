@@ -165,14 +165,24 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 if(filmAPicture != null){
                     Picasso.get()
                             .load(filmAPicture)
+                            .error(R.drawable.no_image_available_md)
                             .resize(200, 245)
+                            .into(((FilmsTypeViewHolder) holder).filmAImageView);
+                }else{
+                    Picasso.get()
+                            .load(R.drawable.no_image_available_md)
                             .into(((FilmsTypeViewHolder) holder).filmAImageView);
                 }
 
                 if(filmBPicture != null){
                     Picasso.get()
                             .load(filmBPicture)
+                            .error(R.drawable.no_image_available_md)
                             .resize(200, 245)
+                            .into(((FilmsTypeViewHolder) holder).filmBImageView);
+                }else{
+                    Picasso.get()
+                            .load(R.drawable.no_image_available_md)
                             .into(((FilmsTypeViewHolder) holder).filmBImageView);
                 }
                 break;

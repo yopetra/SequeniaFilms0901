@@ -48,6 +48,11 @@ public class MainActivityPresenter {
                         }
 
                         ArrayList<Film> films = filmsHolder.getAllFilms();
+                        System.out.println("The movies that we have:");
+                        for(int i = 0; i < films.size(); i++){
+                            Film film = films.get(i);
+                            System.out.println(">> " + film.getLocalizedName());
+                        }
                         genreHolder.extractGenresFrom(films);
 
                         ArrayList<String> genres = genreHolder.getGenresList();
