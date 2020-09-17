@@ -99,10 +99,10 @@ public class FilmsListFragment extends Fragment implements FilmsListAdapter.Film
         System.out.println("Film = " + film.getName());
     }
 
-    @Override
-    public void updateText(String textString) {
-
-    }
+//    @Override
+//    public void updateText(String textString) {
+//
+//    }
 
     @Override
     public void applyFilmsData(ArrayList<Object> genresAndFilms) {

@@ -26,7 +26,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="bottom"
-                android:background="@color/colorDarkGrey"
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="4dp">
                 <TextView
@@ -38,7 +37,8 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:lines="2"
-                    android:textColor="@color/colorWhiteGrey"/>
+                    android:textColor="@color/colorWhiteGrey"
+                    android:background="@color/colorDarkGrey"/>
             </FrameLayout>
 
 
@@ -58,7 +58,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="bottom"
-                android:background="@color/colorDarkGrey"
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="4dp">
                 <TextView
@@ -70,7 +69,8 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:lines="2"
-                    android:textColor="@color/colorWhiteGrey"/>
+                    android:textColor="@color/colorWhiteGrey"
+                    android:background="@color/colorDarkGrey"/>
 
             </FrameLayout>
 
