@@ -18,7 +18,4 @@ public class Genre {
         this.mSelected = isSelected;
     }
 
-    public boolean getIsSelected() {
-        return mSelected;
-    }
 }

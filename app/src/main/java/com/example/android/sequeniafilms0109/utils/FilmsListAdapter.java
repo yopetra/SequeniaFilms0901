@@ -139,7 +139,6 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         switch (className){
             case "Genre":
                 Genre genre = (Genre) genreOrFilmItem;
-//                boolean isSelected = genre.getIsSelected();
 
                 if(position == selectedGenre){
                     ((GenresTypeViewHolder) holder).frameLayout.setBackgroundColor(Color.parseColor("#85b1d6"));

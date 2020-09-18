@@ -79,13 +79,10 @@ public class FilmsListFragment extends Fragment implements FilmsListAdapter.Film
 
         mFilmsRecyclerView = rootView.findViewById(R.id.rv_films_grid);
 
-//        GridLayoutManager gridLayoutManager = new GridLayoutManager(rootView.getContext(), 2);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(rootView.getContext(), RecyclerView.VERTICAL, false);
-//        mFilmsRecyclerView.setLayoutManager(gridLayoutManager);
         mFilmsRecyclerView.setLayoutManager(linearLayoutManager);
         mFilmsRecyclerView.setHasFixedSize(true);
         mAdapter = new FilmsListAdapter(this);
-//        mAdapter.setFilmData(filmsList);
         mFilmsRecyclerView.setAdapter(mAdapter);
 
         return rootView;
@@ -93,15 +90,9 @@ public class FilmsListFragment extends Fragment implements FilmsListAdapter.Film
 
     @Override
     public void onClick(int position) {
-        System.out.println("Film = " + mPresenter.clickedGenre(position) );
         mAdapter.setSelectedGenre(position);
         mAdapter.notifyDataSetChanged();
     }
-
-//    @Override
-//    public void updateText(String textString) {
-//
-//    }
 
     @Override
     public void applyFilmsData(ArrayList<Object> genresAndFilms) {
