@@ -69,4 +69,13 @@ public class GenreHolder {
     public Genre getById(int genreId) {
         return genresList.get(genreId);
     }
+
+    public void setSelectedById(int id) {
+        int arrSize = genresList.size();
+        for(int i = 0; i < arrSize; i++){
+            genresList.get(i).setSelected(false);
+        }
+
+        genresList.get(id).setSelected(true);
+    }
 }

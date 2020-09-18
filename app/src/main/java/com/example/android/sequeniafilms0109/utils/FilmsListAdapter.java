@@ -1,13 +1,19 @@
 package com.example.android.sequeniafilms0109.utils;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.sequeniafilms0109.R;
@@ -16,6 +22,7 @@ import com.example.android.sequeniafilms0109.model.Devider;
 import com.example.android.sequeniafilms0109.model.Film;
 import com.example.android.sequeniafilms0109.model.Genre;
 import com.example.android.sequeniafilms0109.model.GenreHolder;
+import com.example.android.sequeniafilms0109.presenter.MainActivityPresenter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -26,6 +33,7 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private final int GENRE_TYPE = 0;
     private final int FILM_TYPE = 1;
     private final int DEVIDER_TYPE = 2;
+    private int selectedGenre = -1;
 
     private static FilmsAdapterOnclickHandler mClickHandler;
 
@@ -37,17 +45,22 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mClickHandler = clickHandler;
     }
 
+    public void setSelectedGenre(int id){
+        selectedGenre = id;
+    }
 
     public static class GenresTypeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView genreTextView;
         CardView cardView;
+        FrameLayout frameLayout;
 
         public GenresTypeViewHolder(@NonNull View itemView) {
             super(itemView);
 
             this.genreTextView = itemView.findViewById(R.id.tv_genre_type);
             this.cardView = itemView.findViewById(R.id.card_view);
+            this.frameLayout = itemView.findViewById(R.id.fl_genre_container);
 
             itemView.setOnClickListener(this);
         }
@@ -126,6 +139,13 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         switch (className){
             case "Genre":
                 Genre genre = (Genre) genreOrFilmItem;
+//                boolean isSelected = genre.getIsSelected();
+
+                if(position == selectedGenre){
+                    ((GenresTypeViewHolder) holder).frameLayout.setBackgroundColor(Color.parseColor("#85b1d6"));
+                }else{
+                    ((GenresTypeViewHolder) holder).frameLayout.setBackgroundColor(Color.parseColor("#333333"));
+                }
                 ((GenresTypeViewHolder) holder).genreTextView.setText( genre.getName() );
                 break;
             case "CoupleOfFilms":
@@ -227,4 +247,6 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             mainList.remove(0);
         }
     }
+
+
 }

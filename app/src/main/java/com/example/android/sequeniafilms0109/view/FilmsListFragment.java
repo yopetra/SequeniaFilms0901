@@ -94,6 +94,8 @@ public class FilmsListFragment extends Fragment implements FilmsListAdapter.Film
     @Override
     public void onClick(int position) {
         System.out.println("Film = " + mPresenter.clickedGenre(position) );
+        mAdapter.setSelectedGenre(position);
+        mAdapter.notifyDataSetChanged();
     }
 
 //    @Override

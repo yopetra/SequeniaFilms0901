@@ -13,4 +13,12 @@ public class Genre {
     public String getName() {
         return mName;
     }
+
+    public void setSelected(boolean isSelected){
+        this.mSelected = isSelected;
+    }
+
+    public boolean getIsSelected() {
+        return mSelected;
+    }
 }

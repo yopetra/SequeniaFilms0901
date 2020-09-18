@@ -91,13 +91,13 @@ public class MainActivityPresenter {
     }
 
     public interface ViewInterface{
-//        void updateText(String textString);
         void applyFilmsData(ArrayList<Object> genresAndFilms);
     }
 
     public String clickedGenre(int genreId){
         GenreHolder genreHolder = GenreHolder.getInstance();
         String genreName = genreHolder.getById(genreId-1).getName();
+        genreHolder.setSelectedById(genreId-1);
 
         return genreName;
     }
