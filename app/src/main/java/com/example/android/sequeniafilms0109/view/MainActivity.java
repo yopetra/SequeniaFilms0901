@@ -34,6 +34,6 @@ public class MainActivity extends AppCompatActivity {
             noInternetTextView.setVisibility(View.VISIBLE);
         }
 
-
+//
     }
 }
