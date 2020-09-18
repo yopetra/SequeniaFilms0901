@@ -75,7 +75,7 @@ public class FilmsListFragment extends Fragment implements FilmsListAdapter.Film
 
         mPresenter = new MainActivityPresenter(this);
         mPresenter.fetchFilms();
-        ArrayList<Film> filmsList =  mPresenter.getAllFilms();
+//        ArrayList<Film> filmsList =  mPresenter.getAllFilms();
 
         mFilmsRecyclerView = rootView.findViewById(R.id.rv_films_grid);
 
@@ -91,6 +91,9 @@ public class FilmsListFragment extends Fragment implements FilmsListAdapter.Film
     @Override
     public void onClick(int position) {
         mAdapter.setSelectedGenre(position);
+        ArrayList<Object> sortedFilms = mPresenter.getMainListSortedByGenre(position);
+        mAdapter.clearData();
+        mAdapter.setMainListData(sortedFilms);
         mAdapter.notifyDataSetChanged();
     }
 

@@ -90,15 +90,43 @@ public class MainActivityPresenter {
         return filmsHolder.getAllFilms();
     }
 
+    public ArrayList<Object> getMainListSortedByGenre(int position) {
+        String selectedGenreName = genreHolder.getById(position-1).getName();
+        int arrSize = filmsHolder.getSize();
+        ArrayList<Object> sortedList = new ArrayList<>();
+
+        sortedList.add(new Devider("Жанры"));
+        ArrayList<Genre> genres = genreHolder.getGenresList();
+        for(int igen = 0; igen < genres.size(); igen++){
+            sortedList.add(genres.get(igen));
+        }
+
+        sortedList.add(new Devider("Фильмы"));
+
+        for(int i = 0; i < arrSize; i++){
+            Film film = filmsHolder.getFilmById(i);
+            ArrayList<String> genresOfFilm = (ArrayList<String>) film.getGenres();
+            int genSize = genresOfFilm.size();
+
+            for(int i2 = 0; i2 < genSize; i2++){
+                if(selectedGenreName.matches(genresOfFilm.get(i2))){
+                    sortedList.add(film);
+                    break;
+                }
+            }
+        }
+        return sortedList;
+    }
+
     public interface ViewInterface{
         void applyFilmsData(ArrayList<Object> genresAndFilms);
     }
 
-    public String clickedGenre(int genreId){
-        GenreHolder genreHolder = GenreHolder.getInstance();
-        String genreName = genreHolder.getById(genreId-1).getName();
-        genreHolder.setSelectedById(genreId-1);
-
-        return genreName;
-    }
+//    public String clickedGenre(int genreId){
+//        GenreHolder genreHolder = GenreHolder.getInstance();
+//        String genreName = genreHolder.getById(genreId-1).getName();
+//        genreHolder.setSelectedById(genreId-1);
+//
+//        return genreName;
+//    }
 }
