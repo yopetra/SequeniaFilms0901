@@ -35,6 +35,8 @@ public class MainActivityPresenter {
     }
 
     public void fetchFilms(){
+        filmsHolder.clearAllData();
+        clearData();
         filmsService
                 .getAPI()
                 .getAllFilms()
@@ -122,11 +124,9 @@ public class MainActivityPresenter {
         void applyFilmsData(ArrayList<Object> genresAndFilms);
     }
 
-//    public String clickedGenre(int genreId){
-//        GenreHolder genreHolder = GenreHolder.getInstance();
-//        String genreName = genreHolder.getById(genreId-1).getName();
-//        genreHolder.setSelectedById(genreId-1);
-//
-//        return genreName;
-//    }
+    private void clearData(){
+        while(genresAndFilmsList.size() > 0){
+            genresAndFilmsList.remove(0);
+        }
+    }
 }

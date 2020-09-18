@@ -45,4 +45,10 @@ public class FilmsHolder {
             filmsList.sort(new FilmNameSorter());
         }
     }
+
+    public void clearAllData() {
+        while(filmsList.size() > 0){
+            filmsList.remove(0);
+        }
+    }
 }

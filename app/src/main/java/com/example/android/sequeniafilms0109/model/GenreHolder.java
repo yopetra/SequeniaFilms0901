@@ -70,12 +70,12 @@ public class GenreHolder {
         return genresList.get(genreId);
     }
 
-    public void setSelectedById(int id) {
-        int arrSize = genresList.size();
-        for(int i = 0; i < arrSize; i++){
-            genresList.get(i).setSelected(false);
-        }
-
-        genresList.get(id).setSelected(true);
-    }
+//    public void setSelectedById(int id) {
+//        int arrSize = genresList.size();
+//        for(int i = 0; i < arrSize; i++){
+//            genresList.get(i).setSelected(false);
+//        }
+//
+//        genresList.get(id).setSelected(true);
+//    }
 }
