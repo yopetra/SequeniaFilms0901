@@ -1,19 +1,16 @@
 package com.example.android.sequeniafilms0109.utils;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
-import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.sequeniafilms0109.R;
@@ -22,7 +19,6 @@ import com.example.android.sequeniafilms0109.model.Devider;
 import com.example.android.sequeniafilms0109.model.Film;
 import com.example.android.sequeniafilms0109.model.Genre;
 import com.example.android.sequeniafilms0109.model.GenreHolder;
-import com.example.android.sequeniafilms0109.presenter.MainActivityPresenter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -35,14 +31,20 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private final int DEVIDER_TYPE = 2;
     private int selectedGenre = -1;
 
-    private static FilmsAdapterOnclickHandler mClickHandler;
+    private static GenresAdapterOnclickHandler mGenresClickHandler;
+    private static FilmsAdapterOnClickHandler mFilmsClickHandler;
 
-    public interface FilmsAdapterOnclickHandler{
+    public interface GenresAdapterOnclickHandler {
         void onClick(int potition);
     }
 
-    public FilmsListAdapter(FilmsAdapterOnclickHandler clickHandler){
-        mClickHandler = clickHandler;
+    public interface FilmsAdapterOnClickHandler{
+        void onClickFilm(int filmId);
+    }
+
+    public FilmsListAdapter(GenresAdapterOnclickHandler genresClickHandler, FilmsAdapterOnClickHandler filmsClickHandler){
+        mGenresClickHandler = genresClickHandler;
+        mFilmsClickHandler = filmsClickHandler;
     }
 
     public void setSelectedGenre(int id){
@@ -68,16 +70,20 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         @Override
         public void onClick(View view) {
             int adapterPosition = getAdapterPosition();
-            mClickHandler.onClick(adapterPosition);
+            mGenresClickHandler.onClick(adapterPosition);
         }
     }
 
-    public static class FilmsTypeViewHolder extends RecyclerView.ViewHolder{
+    public static class FilmsTypeViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener, View.OnClickListener{
 
         TextView filmANameTextView;
         TextView filmBNameTextView;
         ImageView filmAImageView;
         ImageView filmBImageView;
+        float[] lastTouchDownXY = new float[2];
+        int viewWidth;
+        int centreOfView;
+        int filmId;
 
         public FilmsTypeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -86,6 +92,42 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             this.filmBNameTextView = itemView.findViewById(R.id.tv_film_name_right);
             this.filmAImageView = itemView.findViewById(R.id.iv_film_item);
             this.filmBImageView = itemView.findViewById(R.id.iv_film_item_right);
+
+            itemView.setOnTouchListener(this);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if(motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN){
+                lastTouchDownXY[0] = motionEvent.getX();
+                lastTouchDownXY[1] = motionEvent.getY();
+                viewWidth = view.getWidth();
+                centreOfView = viewWidth / 2;
+
+//                if(lastTouchDownXY[0] < centreOfView){
+//                    System.out.println("Clicked left movie");
+//                }else{
+//                    System.out.println("Clicked right movie");
+//                }
+            }
+
+//            System.out.println("X = " + lastTouchDownXY[0] + " y = " + lastTouchDownXY[1] + " -- " + view.getWidth());
+//            System.out.println("position = " + getAdapterPosition());
+            GenreHolder genreHolder = GenreHolder.getInstance();
+            int genreSize = genreHolder.getSize() + 2; // 2 is two deviders - Genres and Films
+            int adapterPosition = getAdapterPosition();
+            filmId = (adapterPosition - genreSize) * 2;
+            if(lastTouchDownXY[0] > centreOfView){ filmId = filmId + 1; }
+//            System.out.println("movie id = " + filmId);
+            return false;
+        }
+
+        @Override
+        public void onClick(View view) {
+
+//                System.out.println("Clicked film id = " + filmId);
+            mFilmsClickHandler.onClickFilm(filmId);
         }
     }
 

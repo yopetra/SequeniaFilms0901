@@ -8,11 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.android.sequeniafilms0109.R;
-import com.example.android.sequeniafilms0109.model.Film;
-import com.example.android.sequeniafilms0109.presenter.MainActivityPresenter;
 import com.example.android.sequeniafilms0109.utils.NetworkUtils;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(NetworkUtils.isInternetAvailable()){
             if(savedInstanceState == null){
-                FilmsListFragment filmsListFragment = new FilmsListFragment();
+                GenresListFragment filmsListFragment = new GenresListFragment();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .add(R.id.fl_frame_container, filmsListFragment)

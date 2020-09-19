@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.sequeniafilms0109.R;
-import com.example.android.sequeniafilms0109.model.Film;
 import com.example.android.sequeniafilms0109.presenter.MainActivityPresenter;
 import com.example.android.sequeniafilms0109.utils.FilmsListAdapter;
 
@@ -22,7 +21,7 @@ import java.util.ArrayList;
 // * Use the {@link FilmsListFragment#newInstance} factory method to
 // * create an instance of this fragment.
 // */
-public class FilmsListFragment extends Fragment implements FilmsListAdapter.FilmsAdapterOnclickHandler, MainActivityPresenter.ViewInterface {
+public class GenresListFragment extends Fragment implements FilmsListAdapter.GenresAdapterOnclickHandler, FilmsListAdapter.FilmsAdapterOnClickHandler, MainActivityPresenter.ViewInterface {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,12 +30,13 @@ public class FilmsListFragment extends Fragment implements FilmsListAdapter.Film
     private RecyclerView mFilmsRecyclerView;
     private FilmsListAdapter mAdapter;
     private MainActivityPresenter mPresenter;
+    ArrayList<Object> sortedFilms;
 
     // TODO: Rename and change types of parameters
 //    private String mParam1;
 //    private String mParam2;
 
-    public FilmsListFragment() {
+    public GenresListFragment() {
         // Required empty public constructor
     }
 
@@ -81,19 +81,18 @@ public class FilmsListFragment extends Fragment implements FilmsListAdapter.Film
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(rootView.getContext(), RecyclerView.VERTICAL, false);
         mFilmsRecyclerView.setLayoutManager(linearLayoutManager);
         mFilmsRecyclerView.setHasFixedSize(true);
-        mAdapter = new FilmsListAdapter(this);
+        mAdapter = new FilmsListAdapter(this, this);
         mAdapter.clearData();
         mFilmsRecyclerView.setAdapter(mAdapter);
 
         return rootView;
     }
 
-
-
     @Override
     public void onClick(int position) {
         mAdapter.setSelectedGenre(position);
-        ArrayList<Object> sortedFilms = mPresenter.getMainListSortedByGenre(position);
+        clearSortedFilmsList();
+        sortedFilms = mPresenter.getMainListSortedByGenre(position);
         mAdapter.clearData();
         mAdapter.setMainListData(sortedFilms);
         mAdapter.notifyDataSetChanged();
@@ -102,5 +101,23 @@ public class FilmsListFragment extends Fragment implements FilmsListAdapter.Film
     @Override
     public void applyFilmsData(ArrayList<Object> genresAndFilms) {
         mAdapter.setMainListData(genresAndFilms);
+    }
+
+    @Override
+    public void onClickFilm(int filmId) {
+        if(sortedFilms != null && sortedFilms.size() > 0){
+            System.out.println("The movies have been sorted");
+        }else{
+            System.out.println("Whole list of movies without sorting");
+        }
+        System.out.println("film id = " + filmId);
+    }
+
+    private void clearSortedFilmsList(){
+        if(sortedFilms != null){
+            while(sortedFilms.size() > 0){
+                sortedFilms.remove(0);
+            }
+        }
     }
 }
