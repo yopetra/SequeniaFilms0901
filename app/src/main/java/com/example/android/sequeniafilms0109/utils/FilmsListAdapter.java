@@ -103,31 +103,23 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 lastTouchDownXY[0] = motionEvent.getX();
                 lastTouchDownXY[1] = motionEvent.getY();
                 viewWidth = view.getWidth();
-                centreOfView = viewWidth / 2;
-
-//                if(lastTouchDownXY[0] < centreOfView){
-//                    System.out.println("Clicked left movie");
-//                }else{
-//                    System.out.println("Clicked right movie");
-//                }
+                int qtyOfFilmsInRow = 2;
+                centreOfView = viewWidth / qtyOfFilmsInRow;
             }
 
-//            System.out.println("X = " + lastTouchDownXY[0] + " y = " + lastTouchDownXY[1] + " -- " + view.getWidth());
-//            System.out.println("position = " + getAdapterPosition());
             GenreHolder genreHolder = GenreHolder.getInstance();
             int genreSize = genreHolder.getSize() + 2; // 2 is two deviders - Genres and Films
             int adapterPosition = getAdapterPosition();
             filmId = (adapterPosition - genreSize) * 2;
             if(lastTouchDownXY[0] > centreOfView){ filmId = filmId + 1; }
-//            System.out.println("movie id = " + filmId);
+
             return false;
         }
 
         @Override
         public void onClick(View view) {
-
-//                System.out.println("Clicked film id = " + filmId);
             mFilmsClickHandler.onClickFilm(filmId);
+
         }
     }
 
@@ -289,5 +281,19 @@ public class FilmsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
+    public ArrayList<Film> getFilmsFromMainList(){
+        int arrSizeCouple = mainList.size();
+        ArrayList<Film> films = new ArrayList<>();
 
+        for(int i = 0; i < arrSizeCouple; i++){
+            Object item = mainList.get(i);
+            if(item.getClass().getSimpleName().matches("CoupleOfFilms")){
+                CoupleOfFilms couple = (CoupleOfFilms) item;
+                films.add((Film) ((CoupleOfFilms) item).getmFilmA());
+                if(((CoupleOfFilms) item).getmFilmB() != null){ films.add(((CoupleOfFilms) item).getmFilmB());}
+            }
+        }
+
+        return films;
+    }
 }

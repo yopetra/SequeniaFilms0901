@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.sequeniafilms0109.R;
+import com.example.android.sequeniafilms0109.model.CoupleOfFilms;
+import com.example.android.sequeniafilms0109.model.Film;
 import com.example.android.sequeniafilms0109.presenter.MainActivityPresenter;
 import com.example.android.sequeniafilms0109.utils.FilmsListAdapter;
 
@@ -105,12 +107,15 @@ public class GenresListFragment extends Fragment implements FilmsListAdapter.Gen
 
     @Override
     public void onClickFilm(int filmId) {
+        ArrayList<Film> films = mAdapter.getFilmsFromMainList();
         if(sortedFilms != null && sortedFilms.size() > 0){
             System.out.println("The movies have been sorted");
         }else{
             System.out.println("Whole list of movies without sorting");
         }
         System.out.println("film id = " + filmId);
+        Film film = films.get(filmId);
+        System.out.println("film gotten");
     }
 
     private void clearSortedFilmsList(){
