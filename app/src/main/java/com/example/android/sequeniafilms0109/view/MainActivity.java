@@ -37,5 +37,13 @@ public class MainActivity extends AppCompatActivity implements GenresListFragmen
     @Override
     public void getFilm(Film film) {
         System.out.println("Film in main activity = " + film.getName());
+
+        DetailFragment detailFragment = new DetailFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.fl_frame_container, detailFragment)
+                .addToBackStack(null)
+                .commit();
     }
 }
