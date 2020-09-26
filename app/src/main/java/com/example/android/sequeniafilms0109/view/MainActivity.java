@@ -8,9 +8,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.android.sequeniafilms0109.R;
+import com.example.android.sequeniafilms0109.model.Film;
 import com.example.android.sequeniafilms0109.utils.NetworkUtils;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GenresListFragment.FilmSelector {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(NetworkUtils.isInternetAvailable()){
             if(savedInstanceState == null){
-                GenresListFragment filmsListFragment = new GenresListFragment();
+                GenresListFragment filmsListFragment = new GenresListFragment(this);
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .add(R.id.fl_frame_container, filmsListFragment)
@@ -31,5 +32,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
 //
+    }
+
+    @Override
+    public void getFilm(Film film) {
+        System.out.println("Film in main activity = " + film.getName());
     }
 }

@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.sequeniafilms0109.R;
-import com.example.android.sequeniafilms0109.model.CoupleOfFilms;
 import com.example.android.sequeniafilms0109.model.Film;
 import com.example.android.sequeniafilms0109.presenter.MainActivityPresenter;
 import com.example.android.sequeniafilms0109.utils.FilmsListAdapter;
@@ -33,13 +32,15 @@ public class GenresListFragment extends Fragment implements FilmsListAdapter.Gen
     private FilmsListAdapter mAdapter;
     private MainActivityPresenter mPresenter;
     ArrayList<Object> sortedFilms;
+    FilmSelector mFilmSelector;
 
     // TODO: Rename and change types of parameters
 //    private String mParam1;
 //    private String mParam2;
 
-    public GenresListFragment() {
+    public GenresListFragment(FilmSelector filmSelector) {
         // Required empty public constructor
+        mFilmSelector = filmSelector;
     }
 
 //    **
@@ -115,6 +116,8 @@ public class GenresListFragment extends Fragment implements FilmsListAdapter.Gen
         }
         System.out.println("film id = " + filmId);
         Film film = films.get(filmId);
+
+        mFilmSelector.getFilm(film);
         System.out.println("film gotten");
     }
 
@@ -124,5 +127,9 @@ public class GenresListFragment extends Fragment implements FilmsListAdapter.Gen
                 sortedFilms.remove(0);
             }
         }
+    }
+
+    public interface FilmSelector{
+        void getFilm(Film film);
     }
 }
