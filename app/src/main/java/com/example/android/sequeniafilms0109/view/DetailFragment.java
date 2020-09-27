@@ -94,7 +94,7 @@ public class DetailFragment extends Fragment {
 
         int releaseDate = mFilm.getYear();
         mReleaseDate = rootView.findViewById(R.id.tv_release_date);
-        mReleaseDate.setText(releaseDate);
+        mReleaseDate.setText(String.valueOf(releaseDate));
 
         String rating = mFilm.getRating();
         mRating = rootView.findViewById(R.id.tv_rating);
