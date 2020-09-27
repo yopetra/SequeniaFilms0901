@@ -31,19 +31,25 @@ public class MainActivity extends AppCompatActivity implements GenresListFragmen
             noInternetTextView.setVisibility(View.VISIBLE);
         }
 
-//
     }
 
     @Override
     public void getFilm(Film film) {
         System.out.println("Film in main activity = " + film.getName());
 
+//        int filmId = film.getId();
+//        Bundle param = new Bundle();
+//        param.putInt("id", filmId);
         DetailFragment detailFragment = new DetailFragment();
+//        detailFragment.setArguments(param);
+        detailFragment.setFilm(film);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         fragmentManager.beginTransaction()
                 .replace(R.id.fl_frame_container, detailFragment)
                 .addToBackStack(null)
                 .commit();
+
     }
 }
