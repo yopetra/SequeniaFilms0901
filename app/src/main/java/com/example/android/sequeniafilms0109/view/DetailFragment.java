@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.android.sequeniafilms0109.R;
 import com.example.android.sequeniafilms0109.model.Film;
@@ -23,6 +24,11 @@ public class DetailFragment extends Fragment {
 
     private Film mFilm;
     private ImageView mFilmIconImageView;
+    private TextView mLocalisedName;
+    private TextView mFilmName;
+    private TextView mReleaseDate;
+    private TextView mRating;
+    private TextView mDescription;
 
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -68,9 +74,6 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-//        System.out.println("--- We are in the details fragment ---");
-//        System.out.println(" --- Film id = " + mFilm.getName());
-
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
         String filmIcon = mFilm.getImageUrl();
@@ -81,7 +84,26 @@ public class DetailFragment extends Fragment {
                 .resize(200, 245)
                 .into(mFilmIconImageView);
 
-        // Inflate the layout for this fragment
+        String localizedName = mFilm.getLocalizedName();
+        mLocalisedName = rootView.findViewById(R.id.tv_localized_name);
+        mLocalisedName.setText(localizedName);
+
+        String name = mFilm.getName();
+        mFilmName = rootView.findViewById(R.id.tv_name);
+        mFilmName.setText(name);
+
+        int releaseDate = mFilm.getYear();
+        mReleaseDate = rootView.findViewById(R.id.tv_release_date);
+        mReleaseDate.setText(releaseDate);
+
+        String rating = mFilm.getRating();
+        mRating = rootView.findViewById(R.id.tv_rating);
+        mRating.setText(rating);
+
+        String description = mFilm.getDescription();
+        mDescription = rootView.findViewById(R.id.tv_description);
+        mDescription.setText(description);
+
         return rootView;
     }
 
