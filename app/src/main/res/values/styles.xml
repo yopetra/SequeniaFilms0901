@@ -7,4 +7,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="DescriptionText" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:textColor">@color/colorWhiteGrey</item>
+        <item name="android:textSize">@dimen/descriptionTextSize</item>
+        <item name="android:paddingTop">12dp</item>
+    </style>
 </resources>

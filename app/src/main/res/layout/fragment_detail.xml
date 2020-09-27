@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.DetailFragment">
+    tools:context=".view.DetailFragment"
+    android:background="@color/colorBlack">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,54 +14,66 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="4dp">
 
             <ImageView
                 android:id="@+id/iv_film_detail"
                 android:layout_width="200dp"
-                android:layout_height="245dp"/>
+                android:layout_height="245dp"
+                android:layout_margin="4dp"
+                tools:src="@drawable/no_image_available_md"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_margin="12dp">
 
                 <TextView
                     android:id="@+id/tv_localized_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Localized name"
-                    android:textSize="20sp"/>
+                    style="@style/DescriptionText"/>
 
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Simple name"
-                    android:textSize="20sp"/>
+                    style="@style/DescriptionText"/>
 
                 <TextView
                     android:id="@+id/tv_release_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Release date"
-                    android:textSize="20sp"/>
+                    style="@style/DescriptionText"/>
 
                 <TextView
                     android:id="@+id/tv_rating"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Rating"
-                    android:textSize="20sp"/>
+                    style="@style/DescriptionText"/>
 
             </LinearLayout>
 
         </LinearLayout>
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_margin="10dp"
+            android:background="@color/cardview_dark_background"/>
+
+        <TextView
             android:id="@+id/tv_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/cardview_light_background"
+            android:padding="10dp"
             android:text="Some of the movie description..."
             android:textSize="16sp"/>
 
