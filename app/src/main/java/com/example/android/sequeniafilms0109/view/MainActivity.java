@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity implements GenresListFragmen
         if(NetworkUtils.isInternetAvailable()){
             if(savedInstanceState == null){
 
-                GenresListFragment filmsListFragment = new GenresListFragment(this);
+                GenresListFragment filmsListFragment = new GenresListFragment();
+                filmsListFragment.setFilmSelector(this);
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.fl_frame_container, filmsListFragment)

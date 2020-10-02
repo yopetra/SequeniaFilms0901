@@ -134,4 +134,8 @@ public class GenresListFragment extends Fragment implements FilmsListAdapter.Gen
     public interface FilmSelector{
         void getFilm(Film film);
     }
+
+    public void setFilmSelector(FilmSelector filmSelector){
+        this.mFilmSelector = filmSelector;
+    }
 }
