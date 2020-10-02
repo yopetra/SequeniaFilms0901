@@ -85,16 +85,9 @@ public class GenresListFragment extends Fragment implements FilmsListAdapter.Gen
     @Override
     public void onClickFilm(int filmId) {
         ArrayList<Film> films = mAdapter.getFilmsFromMainList();
-//        if(sortedFilms != null && sortedFilms.size() > 0){
-//            System.out.println("The movies have been sorted");
-//        }else{
-//            System.out.println("Whole list of movies without sorting");
-//        }
-//        System.out.println("film id = " + filmId);
         Film film = films.get(filmId);
 
         mFilmSelector.getFilm(film);
-//        System.out.println("film gotten");
     }
 
     private void clearSortedFilmsList(){
