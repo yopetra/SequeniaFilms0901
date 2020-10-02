@@ -5,7 +5,6 @@ import android.os.Build;
 import com.example.android.sequeniafilms0109.utils.FilmNameSorter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class FilmsHolder {
 

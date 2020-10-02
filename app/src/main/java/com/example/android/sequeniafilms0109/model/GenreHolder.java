@@ -5,7 +5,6 @@ import android.os.Build;
 import com.example.android.sequeniafilms0109.utils.GenreNameSorter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class GenreHolder {
@@ -70,12 +69,4 @@ public class GenreHolder {
         return genresList.get(genreId);
     }
 
-//    public void setSelectedById(int id) {
-//        int arrSize = genresList.size();
-//        for(int i = 0; i < arrSize; i++){
-//            genresList.get(i).setSelected(false);
-//        }
-//
-//        genresList.get(id).setSelected(true);
-//    }
 }
