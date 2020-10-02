@@ -38,10 +38,12 @@ public class GenresListFragment extends Fragment implements FilmsListAdapter.Gen
 //    private String mParam1;
 //    private String mParam2;
 
-    public GenresListFragment(FilmSelector filmSelector) {
-        // Required empty public constructor
-        mFilmSelector = filmSelector;
-    }
+    public GenresListFragment(){}
+
+//    public GenresListFragment(FilmSelector filmSelector) {
+//         Required empty public constructor
+//        mFilmSelector = filmSelector;
+//    }
 
 //    **
 //     * Use this factory method to create a new instance of

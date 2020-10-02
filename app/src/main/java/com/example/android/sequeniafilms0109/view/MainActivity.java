@@ -20,10 +20,11 @@ public class MainActivity extends AppCompatActivity implements GenresListFragmen
 
         if(NetworkUtils.isInternetAvailable()){
             if(savedInstanceState == null){
+
                 GenresListFragment filmsListFragment = new GenresListFragment(this);
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .add(R.id.fl_frame_container, filmsListFragment)
+                        .replace(R.id.fl_frame_container, filmsListFragment)
                         .commit();
             }
         }else{
